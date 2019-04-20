@@ -1,0 +1,67 @@
+---
+- hosts: localhost
+  connection: local
+
+  tasks:
+  - name: Brew install or update preinstalled
+    sudo: no
+    homebrew:
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - awscli
+      - bitwarden-cli
+      - docker
+      - git
+      - thefuck
+      - elinks
+      - ettercap
+      - htop
+      - nmap
+      - speedtest-cli
+      - zsh
+      - zsh-syntax-highlighting
+      - zsh-autosuggestions
+
+  - name: Brew cask install applications
+    homebrew_cask:
+      sudo: no
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - google-chrome
+      - brave
+      - franz
+      - firefox
+      - iterm2
+      - intellij-idea
+      - charles
+      - sourcetree
+      - spotify
+
+  - name: Install oh my zsh
+    sudo: no
+    shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+  - name: Install SDK Development Kit Manager
+    sudo: no
+    shell: curl -s "https://get.sdkman.io" | bash
+    action: source "$HOME/.sdkman/bin/sdkman-init.sh"
+ 
+  - name: Copy configured zshrc
+    sudo: no
+    copy:
+      src: ./zshrc
+      dest: ~/.zshrc
+
+  - name: Create projects directory
+    sudo: no
+    file:
+      path: ~/projects
+      state: directory
+
+  - name: Create tmp directory
+    sudo: no
+    file:
+      path: ~/tmp
+      state: directory
