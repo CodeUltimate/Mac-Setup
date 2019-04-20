@@ -33,7 +33,6 @@ in the `playbook.yaml`:
 - iterm2
 - visual-studio-code
 - sourcetree
-- spotify
 
 
 ##Notice
