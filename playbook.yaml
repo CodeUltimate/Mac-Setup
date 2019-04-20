@@ -11,31 +11,31 @@
       - awscli
       - bitwarden-cli
       - docker
-      - git
-      - thefuck
       - elinks
       - ettercap
+      - git
       - htop
+      - thefuck
       - nmap
       - speedtest-cli
       - zsh
-      - zsh-syntax-highlighting
       - zsh-autosuggestions
+      - zsh-syntax-highlighting
 
   - name: Brew cask install applications
     homebrew_cask:
       name: "{{ item }}"
       state: present
     with_items:
-      - google-chrome
       - brave
+      - google-chrome
+      - charles
       - franz
       - spotify
       - intellij-idea
       - firefox
       - iterm2
       - visual-studio-code
-      - charles
       - sourcetree
       - spotify
 
@@ -43,7 +43,7 @@
     shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
   - name: Install SDK Development Kit Manager
-    shell: curl -s "https://get.sdkman.io" | bash sleep 50 "$HOME/.sdkman/bin/sdkman-init.sh"
+    shell: curl -s "https://get.sdkman.io" | bash sleep 5 "$HOME/.sdkman/bin/sdkman-init.sh"
 
   - name: Copy configured zshrc
     copy:
