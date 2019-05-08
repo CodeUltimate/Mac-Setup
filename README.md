@@ -33,7 +33,7 @@ in the `playbook.yaml`:
 - iterm2
 - visual-studio-code
 - sourcetree
-
+- psequel
 
 ##Notice
 **To run the ansible playbook run the `main.sh` script.**
