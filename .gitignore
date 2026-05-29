@@ -1,0 +1,5 @@
+# Ansible retry artifacts
+*.retry
+
+# macOS
+.DS_Store

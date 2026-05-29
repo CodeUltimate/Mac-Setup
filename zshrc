@@ -1,8 +1,15 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+# Put Homebrew on the PATH (handles both Apple Silicon and Intel locations).
+if [ -x /opt/homebrew/bin/brew ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [ -x /usr/local/bin/brew ]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
+
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/~/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -109,7 +116,7 @@ alias t="tree"
 alias v="vi"
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 
-export SDKMAN_DIR="/Users/~/.sdkman"
-[[ -s "/Users/~/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/~/.sdkman/bin/sdkman-init.sh"
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 eval $(thefuck --alias)

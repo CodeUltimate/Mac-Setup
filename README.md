@@ -1,39 +1,41 @@
 # Mac-Setup
 
-I have set up an ansible playbook along with a few scripts 
-to help me set up a Mac machine for development.
+An Ansible playbook and a small set of shell scripts to set up a fresh Mac
+for development. Works on both Apple Silicon and Intel Macs.
 
-The following packages from **brew** are included in
-the `playbook.yaml`:
+## What it does
 
-- awscli
-- bitwarden-cli
-- docker
-- elinks
-- ettercap
-- git
-- htop
-- thefuck
-- nmap
-- speedtest-cli
-- zsh
-- zsh-autosuggestions
-- zsh-syntax-highlighting
+`main.sh` runs the bootstrap scripts in order and then applies the playbook:
 
-The following applications are installed from **brew** 
-in the `playbook.yaml`:
+1. **`xcode.sh`** — installs the Xcode Command Line Tools (idempotent).
+2. **`homebrew.sh`** — installs [Homebrew](https://brew.sh) using the current
+   installer and puts `brew` on the `PATH`.
+3. **`ansible.sh`** — installs Ansible via Homebrew and the
+   `community.general` collection.
+4. **`playbook.yaml`** — installs the packages/apps below and configures the shell.
 
-- brave
-- google-chrome
-- charles
-- franz
-- spotify
-- intellij-idea
-- firefox
-- iterm2
-- visual-studio-code
-- sourcetree
-- psequel
+## Usage
 
-##Notice
-**To run the ansible playbook run the `main.sh` script.**
+```sh
+./main.sh
+```
+
+> The Xcode Command Line Tools step opens a macOS dialog; click **Install** and
+> accept the licence. The script waits until the install finishes before
+> continuing.
+
+## Homebrew formulae (`playbook.yaml`)
+
+awscli · bitwarden-cli · docker · elinks · ettercap · git · htop · lsd · nmap ·
+speedtest-cli · thefuck · tree · zsh
+
+## Homebrew cask applications (`playbook.yaml`)
+
+brave-browser · google-chrome · charles · ferdium · spotify · intellij-idea ·
+firefox · iterm2 · visual-studio-code · sourcetree · tableplus
+
+## Shell configuration
+
+The playbook installs [oh-my-zsh](https://ohmyz.sh), the
+`zsh-autosuggestions` and `zsh-syntax-highlighting` plugins, and
+[SDKMAN](https://sdkman.io), then copies `zshrc` to `~/.zshrc`.
