@@ -4,20 +4,24 @@ set -euo pipefail
 # Run from the directory this script lives in so relative paths resolve.
 cd "$(dirname "$0")"
 
-# Run all of the bootstrap scripts in order.
+# 1. Xcode Command Line Tools
 bash xcode.sh
-bash homebrew.sh
-bash ansible.sh
 
-# Make `brew` available to this session (Apple Silicon or Intel) so the
-# playbook's homebrew tasks can find it.
+# 2. Homebrew
+bash homebrew.sh
+
+# Make `brew` available to this session (Apple Silicon or Intel).
 if [ -x /opt/homebrew/bin/brew ]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 elif [ -x /usr/local/bin/brew ]; then
   eval "$(/usr/local/bin/brew shellenv)"
 fi
 
-echo "Running the Ansible playbook to install Homebrew packages..."
-ansible-playbook -i localhost playbook.yaml
+# 3. Install everything declared in the Brewfile
+echo "Installing packages and applications from the Brewfile..."
+brew bundle --file=Brewfile
 
-echo "Ansible playbook successfully executed."
+# 4. Shell configuration (oh-my-zsh, plugins, SDKMAN, zshrc, directories)
+bash shell.sh
+
+echo "Mac setup complete."
